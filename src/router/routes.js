@@ -5,7 +5,11 @@ const routes = [
   },
   {
     path: '/api',
-    component: () => import('../pages/ApiPage.vue')
+    component: () => import('../pages/ApiPage.vue'),
+    children: [{
+      path: ':filmId',
+      component: () => import('../pages/FilmPage.vue')
+    }]
   },
   {
     path: '/componentes',

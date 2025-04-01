@@ -1,10 +1,18 @@
 <template>
   <div class="q-pa-md">
     <h3>Título de la página de API</h3>
-    <div class="row items-center justify-between">
-      <q-btn v-for="film in films" :key="film.episode_id" color="dark" class="btn-primary" :to="`/peliculas/${film.episode_id}`" :label="`${film.title}`"/>
-
+    <div class="row items-center justify-evenly">
+      <q-btn
+        v-for="film in films"
+        :key="film.episode_id"
+        color="dark"
+        class="btn-primary"
+        :to="`/api/${film.episode_id}`"
+        :label="film.title"
+      />
     </div>
+
+    <router-view />
   </div>
 </template>
 
