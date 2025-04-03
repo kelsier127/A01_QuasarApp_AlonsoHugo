@@ -6,10 +6,13 @@ const routes = [
   {
     path: '/api',
     component: () => import('../pages/ApiPage.vue'),
-    children: [{
-      path: ':filmId',
-      component: () => import('../pages/FilmPage.vue')
-    }]
+    children: [
+      {
+        path: ':apiSearch',
+        component: () => import('../pages/ApiSearchPage.vue')
+      },
+
+    ]
   },
   {
     path: '/componentes',

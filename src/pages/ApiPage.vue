@@ -1,15 +1,23 @@
 <template>
   <div class="q-pa-md">
     <h3>Título de la página de API</h3>
+
     <div class="row items-center justify-evenly">
-      <q-btn
-        v-for="film in films"
-        :key="film.episode_id"
-        color="dark"
-        class="btn-primary"
-        :to="`/api/${film.episode_id}`"
-        :label="film.title"
-      />
+      <q-tabs
+        v-model="tab"
+        align="justify"
+        class="bg-grey-3 text-primary"
+        dense
+        narrow-indicator
+      >
+        <q-route-tab
+          v-for="(url, key) in results"
+          :key="key"
+          :name="key"
+          :label="key"
+          :to="`/api/${key}`"
+        />
+      </q-tabs>
     </div>
 
     <router-view />
@@ -20,16 +28,20 @@
 import { ref, watch } from 'vue'
 import { api } from 'boot/axios'
 
-const films = ref([])
-const trigger = ref(true)
+const results = ref({})
+const tab = ref('')
 
-watch(trigger, async () => {
-  try {
-    const res = await api.get('films/')
-    films.value = res.data.results
-    console.log('Películas cargadas con watch')
-  } catch (error) {
-    console.error('Error al cargar películas:', error)
-  }
-}, { immediate: true })
+watch(
+  () => true,
+  async () => {
+    try {
+      const res = await api.get('/')
+      results.value = res.data
+      tab.value = Object.keys(res.data)[0]
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  { immediate: true }
+)
 </script>
