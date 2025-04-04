@@ -5,18 +5,16 @@ const routes = [
   },
   {
     path: '/api',
-    component: () => import('../pages/ApiPage.vue'),
-    children: [
-      {
-        path: ':apiSearch',
-        component: () => import('../pages/ApiSearchPage.vue')
-      },
+    component: () => import('../pages/ShopPage.vue'),
 
-    ]
   },
   {
     path: '/componentes',
     component: () => import('../pages/ComponentesPage.vue')
+  },
+  {
+    path: '/producto/:id',
+    component: () => import('../pages/ProductPage.vue')
   }
 ]
 
