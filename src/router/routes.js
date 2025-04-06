@@ -9,12 +9,16 @@ const routes = [
 
   },
   {
-    path: '/componentes',
-    component: () => import('../pages/ComponentesPage.vue')
+    path: '/formulario',
+    component: () => import('../pages/FormPage.vue')
   },
   {
     path: '/producto/:id',
     component: () => import('../pages/ProductPage.vue')
+  },
+  {
+    path: '/carrito',
+    component: () => import('../pages/CarritoPage.vue')
   }
 ]
 

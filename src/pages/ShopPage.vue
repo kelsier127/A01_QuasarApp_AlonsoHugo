@@ -32,7 +32,11 @@
           :max="5"
           color="primary"
         ></q-rating>
-        <q-btn color="primary" class="q-mb-sm q-ml-sm">
+        <q-btn
+          @click="afegirCarrito(producto.title, producto.price, producto)"
+          color="primary"
+          class="q-mb-sm q-ml-sm"
+        >
           <span class="q-ml-xs">Add to Cart</span>
           <q-icon name="shopping_cart" />
         </q-btn>
@@ -45,6 +49,40 @@
 import { computed, ref, watch } from "vue";
 import { api } from "boot/axios";
 import { RouterLink } from "vue-router";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
+
+let carrito = ref([]);
+
+const afegirCarrito = (nombre, precio, item) => {
+  $q.notify({
+    message: `Has añadido ${nombre} al carrito por ${precio} €`,
+    icon: "shopping_cart",
+    color: "purple",
+  });
+
+  console.log(item);
+  let itemAnyadido = { ...item, quantity: 1 };
+
+  if (carrito.value.length == 0) {
+    carrito.value.push(itemAnyadido);
+  } else {
+    for (let i in carrito.value) {
+      if (carrito.value[i].id == itemAnyadido.id) {
+        carrito.value[i].quantity++;
+        carrito.value[i].price += itemAnyadido.price;
+        break;
+      } else if (i == carrito.value.length - 1) {
+        carrito.value.push(itemAnyadido);
+      }
+    }
+
+  }
+  localStorage.setItem("CarritoCompra", JSON.stringify(carrito.value));
+
+  console.log(carrito.value);
+};
 
 const results = ref([]);
 const filter = ref("");
